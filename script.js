@@ -33,12 +33,13 @@ const feedbackElement = document.getElementById("feedback");
 function setupGame() {
     const time = document.querySelector('h1');
      timeSecond = 60;
-
+     updateTime();
     time.innerHTML = `Time Remaining:  ${timeSecond}`;
 
     // Countdown + consistent decrement interval
      countDown = setInterval(() => {
         timeSecond--;
+        updateTime();
         time.innerHTML = `Time Remaining:  ${timeSecond}`;
         if (timeSecond <= 0 || timeSecond < 1) {
             clearInterval(countDown);
@@ -50,6 +51,7 @@ function setupGame() {
 }
 
 function showQuestion() {
+    updateTime();
     const currentQuestion = questions[currentQuestionIndex];
     if (answeredQuestions.includes(currentQuestionIndex)) {
         currentQuestionIndex++;
@@ -88,9 +90,16 @@ function showQuestion() {
 }
 
 
+function updateTime() {
+    const time = document.querySelector('h1');
+    time.innerHTML = `Time Remaining: ${timeSecond}`;
+  }
+  
+
 
 
     function endQuiz(timeSecond) {
+        updateTime();
         let score = timeSecond;
         clearInterval(countDown);
         // check if all questions have been answered
