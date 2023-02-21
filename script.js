@@ -13,12 +13,18 @@ const questions = [
         question: "What is 4 + 4",
         options: ["8", "80", "800", "-8"],
         answer: "8"
+    },
+    {
+        question: "What is 5 x 5",
+        options: ["10", "25", "250", ".10"],
+        answer: "25"
     }
 ];
 
 let currentQuestionIndex = 0;
 let answeredQuestions = [];
 let countDown;
+let timeSecond
 
 const questionElement = document.getElementById("question");
 const optionsElement = document.getElementById("options");
@@ -26,12 +32,12 @@ const feedbackElement = document.getElementById("feedback");
 
 function setupGame() {
     const time = document.querySelector('h1');
-    let timeSecond = 60;
+     timeSecond = 60;
 
     time.innerHTML = `Time Remaining:  ${timeSecond}`;
 
     // Countdown + consistent decrement interval
-    const countDown = setInterval(() => {
+     countDown = setInterval(() => {
         timeSecond--;
         time.innerHTML = `Time Remaining:  ${timeSecond}`;
         if (timeSecond <= 0 || timeSecond < 1) {
@@ -50,7 +56,7 @@ function showQuestion() {
         if (currentQuestionIndex < questions.length) {
             showQuestion();
         } else {
-            endQuiz();
+            endQuiz(timeSecond);
         }
         return;
     }
@@ -68,13 +74,13 @@ function showQuestion() {
                 answeredQuestions.push(currentQuestionIndex);
             } else {
                 feedbackElement.textContent = "Wrong!";
-                timeSecond -= 10; // fix error here
+                timeSecond -= 10; 
             }
             currentQuestionIndex++;
             if (currentQuestionIndex < questions.length) {
                 showQuestion();
             } else {
-                endQuiz();
+                endQuiz(timeSecond);
             }
         });
         optionsElement.appendChild(button);
@@ -84,14 +90,14 @@ function showQuestion() {
 
 
 
-    function endQuiz() {
+    function endQuiz(timeSecond) {
+        let score = timeSecond;
         clearInterval(countDown);
-    
         // check if all questions have been answered
         if (answeredQuestions.length === questions.length) {
-            feedbackElement.textContent = "Quiz ended. All questions answered!";
+            feedbackElement.textContent = `Quiz ended. All questions answered! Your score is ${score}`;
         } else {
-            feedbackElement.textContent = "Quiz ended. Time's up!";
+            feedbackElement.textContent = `Quiz Ended. Your score is ${score}`
         }
     
         // clear the options and question elements
@@ -105,7 +111,11 @@ function showQuestion() {
 
 const startButton = document.getElementById("start-game");
 startButton.addEventListener("click", () => {
-    startButton.style.display = "none";
-    setupGame();
-    showQuestion();
+    currentQuestionIndex = 0;
+answeredQuestions = [];
+questionElement.textContent = "";
+feedbackElement.textContent = "";
+startButton.style.display = "none";
+setupGame();
+showQuestion();
 });
