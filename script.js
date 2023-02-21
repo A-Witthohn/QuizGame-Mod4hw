@@ -32,16 +32,17 @@ const feedbackElement = document.getElementById("feedback");
 
 function setupGame() {
     const time = document.querySelector('h1');
-     timeSecond = 60;
-     updateTime();
+    timeSecond = 35;
+    updateTime();
     time.innerHTML = `Time Remaining:  ${timeSecond}`;
 
     // Countdown + consistent decrement interval
-     countDown = setInterval(() => {
+    countDown = setInterval(() => {
         timeSecond--;
         updateTime();
         time.innerHTML = `Time Remaining:  ${timeSecond}`;
         if (timeSecond <= 0 || timeSecond < 1) {
+            endQuiz();
             clearInterval(countDown);
             const start = document.getElementById(`start-game`);
             //causes button to reappear after countdown has concluded
@@ -67,16 +68,19 @@ function showQuestion() {
 
     optionsElement.innerHTML = "";
 
-    currentQuestion.options.forEach(function(option) {
+    currentQuestion.options.forEach(function (option) {
         const button = document.createElement("button");
         button.textContent = option;
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
+
             if (option === currentQuestion.answer) {
                 feedbackElement.textContent = "Correct!";
                 answeredQuestions.push(currentQuestionIndex);
             } else {
                 feedbackElement.textContent = "Wrong!";
-                timeSecond -= 10; 
+                answeredQuestions.push(currentQuestionIndex);
+                timeSecond -= 10;
+                updateTime();
             }
             currentQuestionIndex++;
             if (currentQuestionIndex < questions.length) {
@@ -93,38 +97,41 @@ function showQuestion() {
 function updateTime() {
     const time = document.querySelector('h1');
     time.innerHTML = `Time Remaining: ${timeSecond}`;
-  }
-  
+}
 
 
 
-    function endQuiz(timeSecond) {
-        updateTime();
-        let score = timeSecond;
-        clearInterval(countDown);
-        // check if all questions have been answered
-        if (answeredQuestions.length === questions.length) {
-            feedbackElement.textContent = `Quiz ended. All questions answered! Your score is ${score}`;
-        } else {
-            feedbackElement.textContent = `Quiz Ended. Your score is ${score}`
-        }
-    
-        // clear the options and question elements
+
+function endQuiz(timeSecond) {
+    updateTime();
+    let score = timeSecond;
+    // check if all questions have been answered
+
+    if (answeredQuestions.length === questions.length) {
+        feedbackElement.textContent = `Quiz ended. All questions answered! Your score is ${score}`;
+    } 
+    else {
+        feedbackElement.textContent = "";
         optionsElement.innerHTML = "";
         questionElement.textContent = "";
-    
-        // show the start button again
-        const start = document.getElementById("start-game");
-        start.style.display = "block";
+        feedbackElement.textContent = `Quiz Ended. Your score is ${score}`
+    }
+
+    // clear the options and question elements
+    optionsElement.innerHTML = "";
+    questionElement.textContent = "";
+
+    // show the start button again
+    const start = document.getElementById("start-game");
+    start.style.display = "block";
 }
 
 const startButton = document.getElementById("start-game");
 startButton.addEventListener("click", () => {
     currentQuestionIndex = 0;
-answeredQuestions = [];
-questionElement.textContent = "";
-feedbackElement.textContent = "";
-startButton.style.display = "none";
-setupGame();
-showQuestion();
+    answeredQuestions = [];
+    feedbackElement.textContent = "";
+    startButton.style.display = "none";
+    setupGame();
+    showQuestion();
 });
