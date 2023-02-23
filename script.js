@@ -31,7 +31,7 @@ const optionsElement = document.getElementById("options");
 const feedbackElement = document.getElementById("feedback");
 
 function setupGame() {
-    const time = document.querySelector('h1');
+    const time = document.querySelector('h2');
     timeSecond = 35;
     updateTime();
     time.innerHTML = `Time Remaining:  ${timeSecond}`;
@@ -42,7 +42,7 @@ function setupGame() {
         updateTime();
         time.innerHTML = `Time Remaining:  ${timeSecond}`;
         if (timeSecond <= 0 || timeSecond < 1) {
-            endQuiz();
+            endQuiz(timeSecond);
             clearInterval(countDown);
             const start = document.getElementById(`start-game`);
             //causes button to reappear after countdown has concluded
@@ -59,6 +59,7 @@ function showQuestion() {
         if (currentQuestionIndex < questions.length) {
             showQuestion();
         } else {
+            console.log("time second logged showQuestion",timeSecond)
             endQuiz(timeSecond);
         }
         return;
@@ -69,6 +70,7 @@ function showQuestion() {
     optionsElement.innerHTML = "";
 
     currentQuestion.options.forEach(function (option) {
+        console.log("time second logged in options function",timeSecond)        
         const button = document.createElement("button");
         button.textContent = option;
         button.addEventListener("click", function () {
@@ -86,6 +88,7 @@ function showQuestion() {
             if (currentQuestionIndex < questions.length) {
                 showQuestion();
             } else {
+                console.log("endQuiz called on CurrentQuestion.options",timeSecond)
                 endQuiz(timeSecond);
             }
         });
@@ -95,16 +98,18 @@ function showQuestion() {
 
 
 function updateTime() {
-    const time = document.querySelector('h1');
+    const time = document.querySelector('h2');
     time.innerHTML = `Time Remaining: ${timeSecond}`;
 }
 
 
 
-
 function endQuiz(timeSecond) {
+    console.log("time second logged final time",timeSecond)
     updateTime();
     let score = timeSecond;
+    console.log("final score logged",score)
+    clearInterval(countDown);
     // check if all questions have been answered
 
     if (answeredQuestions.length === questions.length) {
