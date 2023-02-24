@@ -24,8 +24,8 @@ const questions = [
 let currentQuestionIndex = 0;
 let answeredQuestions = [];
 let countDown;
-let timeSecond
-let score = 0
+let timeSecond;
+let score = 0;
 
 const questionElement = document.getElementById("question");
 const optionsElement = document.getElementById("options");
@@ -142,12 +142,43 @@ startButton.addEventListener("click", () => {
     showQuestion();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //Final Score / Highscore element
 
-//     const highScore = {
-//         intials:"initials",
-//         finalScore: score
-//     };
+    const saveButton = document.querySelector("#saveButton");
+    saveButton.addEventListener("click", function(event){
+        event.preventDefault ()
+        const allScores = JSON.parse(localStorage.getItem("allScores"))||[]
+        const highScore = {
+            initials : document.getElementById("initials").value,
+            finalScore: score
+        };
+    if (initials === "") {
+        displayMessage("error", "Initials cannot be blank");
+    } else {
+            allScores.push(highScore)
+            localStorage.setItem("allScores",JSON.stringify(allScores))
+        }});
+
+   
 
 //     const highScoreString = JSON.stringify(highScore);
 
@@ -159,3 +190,4 @@ startButton.addEventListener("click", () => {
 
 //     console.log(highScore.initials + "scored" + highScore.finalScore);
  });
+
