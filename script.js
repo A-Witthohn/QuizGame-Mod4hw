@@ -25,6 +25,7 @@ let currentQuestionIndex = 0;
 let answeredQuestions = [];
 let countDown;
 let timeSecond
+let score = 0
 
 const questionElement = document.getElementById("question");
 const optionsElement = document.getElementById("options");
@@ -107,7 +108,7 @@ function updateTime() {
 function endQuiz(timeSecond) {
     console.log("time second logged final time",timeSecond)
     updateTime();
-    let score = timeSecond;
+    score = timeSecond;
     console.log("final score logged",score)
     clearInterval(countDown);
     // check if all questions have been answered
@@ -139,4 +140,22 @@ startButton.addEventListener("click", () => {
     startButton.style.display = "none";
     setupGame();
     showQuestion();
-});
+
+
+    //Final Score / Highscore element
+
+//     const highScore = {
+//         intials:"initials",
+//         finalScore: score
+//     };
+
+//     const highScoreString = JSON.stringify(highScore);
+
+//     localStorage.setItem("highscore", highScoreString);
+
+//     const highScoreString = localStorage.getItem("highscore");
+//     const highScore = JSON.parse(highScoreString);
+
+
+//     console.log(highScore.initials + "scored" + highScore.finalScore);
+ });
