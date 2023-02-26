@@ -28,8 +28,15 @@ THEN I can save my initials and my score
 ![Active Game Demo](./assets/Quiz%20Game%20Active%20Demo.png)
 ![highScore Demo](./assets/HighScore-Demo.png)
 
-## License
 
+## Deployment 
+
+[Quiz Game Deployment](https://a-witthohn.github.io/QuizGame-Mod4hw/)
+
+[Git Hub Repository](https://github.com/A-Witthohn/QuizGame-Mod4hw)
+
+
+## License
 ---
 
 © 2023 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
