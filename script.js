@@ -33,7 +33,7 @@ const feedbackElement = document.getElementById("feedback");
 
 function setupGame() {
     const time = document.querySelector('h2');
-    timeSecond = 35;
+    timeSecond = 120;
     updateTime();
     time.innerHTML = `Time Remaining:  ${timeSecond}`;
 
@@ -60,7 +60,7 @@ function showQuestion() {
         if (currentQuestionIndex < questions.length) {
             showQuestion();
         } else {
-            console.log("time second logged showQuestion",timeSecond)
+            console.log("time second logged showQuestion", timeSecond)
             endQuiz(timeSecond);
         }
         return;
@@ -71,7 +71,7 @@ function showQuestion() {
     optionsElement.innerHTML = "";
 
     currentQuestion.options.forEach(function (option) {
-        console.log("time second logged in options function",timeSecond)        
+        console.log("time second logged in options function", timeSecond)
         const button = document.createElement("button");
         button.textContent = option;
         button.addEventListener("click", function () {
@@ -89,7 +89,7 @@ function showQuestion() {
             if (currentQuestionIndex < questions.length) {
                 showQuestion();
             } else {
-                console.log("endQuiz called on CurrentQuestion.options",timeSecond)
+                console.log("endQuiz called on CurrentQuestion.options", timeSecond)
                 endQuiz(timeSecond);
             }
         });
@@ -106,16 +106,16 @@ function updateTime() {
 
 
 function endQuiz(timeSecond) {
-    console.log("time second logged final time",timeSecond)
+    console.log("time second logged final time", timeSecond)
     updateTime();
     score = timeSecond;
-    console.log("final score logged",score)
+    console.log("final score logged", score)
     clearInterval(countDown);
     // check if all questions have been answered
 
     if (answeredQuestions.length === questions.length) {
         feedbackElement.textContent = `Quiz ended. All questions answered! Your score is ${score}`;
-    } 
+    }
     else {
         feedbackElement.textContent = "";
         optionsElement.innerHTML = "";
@@ -144,50 +144,27 @@ startButton.addEventListener("click", () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //Final Score / Highscore element
 
+
     const saveButton = document.querySelector("#saveButton");
-    saveButton.addEventListener("click", function(event){
-        event.preventDefault ()
-        const allScores = JSON.parse(localStorage.getItem("allScores"))||[]
+    saveButton.addEventListener("click", function (event) {
+        // event.preventDefault()
+        const allScores = JSON.parse(localStorage.getItem("allScores")) || []
         const highScore = {
-            initials : document.getElementById("initials").value,
+            initials: document.getElementById("initials").value,
             finalScore: score
         };
-    if (initials === "") {
-        displayMessage("error", "Initials cannot be blank");
-    } else {
+        if (initials === "") {
+            displayMessage("error", "Initials cannot be blank");
+        } else {
             allScores.push(highScore)
-            localStorage.setItem("allScores",JSON.stringify(allScores))
-        }});
-
-   
-
-//     const highScoreString = JSON.stringify(highScore);
-
-//     localStorage.setItem("highscore", highScoreString);
-
-//     const highScoreString = localStorage.getItem("highscore");
-//     const highScore = JSON.parse(highScoreString);
-
-
-//     console.log(highScore.initials + "scored" + highScore.finalScore);
- });
+            Object.entries(allScores).sort((a,b) =>b[1]-a[1])
+            console.log(allScores)
+            localStorage.setItem("allScores", JSON.stringify(allScores))
+            console.log("Logged in else",allScores)
+        }
+        return;
+    });
+});
 

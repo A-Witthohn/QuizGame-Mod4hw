@@ -8,7 +8,8 @@ p {
     text-align: center;
 }
 
-a { margin-top: 20px;
+a {
+    margin-top: 20px;
     text-align: center;
     text-decoration: underline;
 }
