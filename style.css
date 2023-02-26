@@ -1,27 +1,26 @@
-#pageTitle{
+#pageTitle {
     text-decoration: underline;
     text-underline-offset: 5px;
 }
 
-.h3{
-font-size: 24px;
+.h3 {
+    font-size: 24px;
 }
 
-#rules{
-font-size: 20px;    
+#rules {
+    font-size: 20px;
 }
 
-#saveScore{
+#saveScore {
     margin-top: 100px;
 
 }
 
-#saveHighScore{
-font-weight: bold;
+#saveHighScore {
+    font-weight: bold;
     font-size: 24px;
 }
 
-#saveButton{
+#saveButton {
     font-weight: bold;
 }
-
